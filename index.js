@@ -17,11 +17,14 @@ let server = http.createServer(function (req, res) {
   // Trim off any extraneous slashes with regex
   let trimmedPath = path.replace(/^\/+|\/+$/g, "");
 
+  // Get the HTTP method
+  let method = req.method.toLowerCase();
+
   // Send the response
   res.end("Done. Check your response.\n");
 
   // Log the requested path
-  console.log(`Request received on path: ${trimmedPath}`);
+  console.log(`Request received on path: ${trimmedPath} with method ${method}`);
 });
 
 // Start the server and have it listen on port 3000
