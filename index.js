@@ -4,12 +4,38 @@
 
 // Dependencies
 const http = require("http");
+const https = require("https");
 const url = require("url");
 const StringDecoder = require("string_decoder").StringDecoder;
 const config = require("./config");
+const fs = require("fs");
 
-// Server should respond to all requests with a string
-let server = http.createServer(function (req, res) {
+// Instantiating the http server
+let httpServer = http.createServer(function (req, res) {
+  unifiedServer(req, res);
+});
+
+// Start the server and have it listen on port 3000
+httpServer.listen(config.httpPort, function () {
+  console.log(`The server is listening on port ${config.httpPort}`);
+});
+
+// Instantiating the https server
+let httpsServerOptions = {
+  key: fs.readFileSync("./https/key.pem"),
+  cert: fs.readFileSync("./https/cert.pem"),
+};
+let httpsServer = https.createServer(httpsServerOptions, function (req, res) {
+  unifiedServer(req, res);
+});
+
+// Start the server and have it listen on port 3000
+httpsServer.listen(config.httpsPort, function () {
+  console.log(`The server is listening on port ${config.httpsPort}`);
+});
+
+// All the server logic for both the http and https server
+let unifiedServer = function (req, res) {
   // Get the path
   let parsedURL = url.parse(req.url, true);
 
@@ -81,14 +107,7 @@ let server = http.createServer(function (req, res) {
       console.log("Returning this response: ", statusCode, payloadString);
     });
   });
-});
-
-// Start the server and have it listen on port 3000
-server.listen(config.port, function () {
-  console.log(
-    `The server is listening on port ${config.port} in ${config.envName} mode`
-  );
-});
+};
 
 // Define the handlers
 let handlers = {};
