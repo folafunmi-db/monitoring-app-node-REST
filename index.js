@@ -70,6 +70,7 @@ let server = http.createServer(function (req, res) {
       let payloadString = JSON.stringify(payload);
 
       // Return the response
+      res.setHeader("Content-Type", "application/json");
       res.writeHead(statusCode);
 
       // Send the response
