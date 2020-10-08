@@ -1,0 +1,33 @@
+/*jshint esversion: 10 */
+
+// Create and export configuration variables
+
+//  Container for all the environments
+let environments = {};
+
+// Staging (default) environment
+environments.staging = {
+  port: 3000,
+  envName: "staging",
+};
+
+// Staging (default) environment
+environments.production = {
+  port: 5000,
+  envName: "production",
+};
+
+// Determine which environment should be exported as CL argument
+let currentEnvironment =
+  typeof process.env.NODE_ENV == "string"
+    ? process.env.NODE_ENV.toLowerCase()
+    : "";
+
+// Check that the environment being passed
+// is the one listed above, else default to staging
+let environmentToExport =
+  typeof environments[currentEnvironment] == "object"
+    ? environments[currentEnvironment]
+    : environments.staging;
+
+module.exports = environmentToExport;
