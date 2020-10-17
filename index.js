@@ -13,7 +13,7 @@ let _data = require("./lib/data");
 
 // Test
 // TODO delete this
-_data.update("test", "newFile", { fizz: "buzz" }, function (err) {
+_data.delete("test", "newFile", function (err) {
 	console.log("This is the error \n", err);
 });
 
