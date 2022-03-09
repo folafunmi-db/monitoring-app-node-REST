@@ -9,13 +9,24 @@ const url = require("url");
 const StringDecoder = require("string_decoder").StringDecoder;
 const config = require("./config");
 const fs = require("fs");
-let _data = require("./lib/data");
+// let _data = require("./lib/data");
 
 // Test
-// TODO delete this
-_data.delete("test", "newFile", function (err) {
-	console.log("This is the error \n", err);
-});
+
+// To create a file
+// _data.create("test", "newFile", { foo: "bar" }, function (err) {
+// 	console.log("This is the error =>>", err);
+// });
+
+// To create a file
+// _data.update("test", "newFile", { fizz: "buzz" }, function (err) {
+// 	console.log("This is the error =>>", err);
+// });
+
+// To delete a file
+// _data.delete("test", "newFile", function (err) {
+// 	console.log("This is the error =>>", err);
+// });
 
 // Instantiating the http server
 let httpServer = http.createServer(function (req, res) {
@@ -28,15 +39,17 @@ httpServer.listen(config.httpPort, function () {
 });
 
 // Instantiating the https server
+// Run the command in the read me to get the certificate and key
 let httpsServerOptions = {
 	key: fs.readFileSync("./https/key.pem"),
-	cert: fs.readFileSync("./https/cert.pem"),
+	cert: fs.readFileSync("./https/certificate.pem"),
 };
+
 let httpsServer = https.createServer(httpsServerOptions, function (req, res) {
 	unifiedServer(req, res);
 });
 
-// Start the server and have it listen on port 3000
+// Start the server and have it listen on port 3001
 httpsServer.listen(config.httpsPort, function () {
 	console.log(`The server is listening on port ${config.httpsPort}`);
 });
@@ -131,5 +144,5 @@ handlers.notFound = function (data, callback) {
 
 // Define the request handler
 let router = {
-	sample: handlers.sample,
+	ping: handlers.ping,
 };
