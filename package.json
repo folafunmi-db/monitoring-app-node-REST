@@ -1,0 +1,27 @@
+{
+  "name": "monitoring-app-node-rest",
+  "version": "1.0.0",
+  "description": "An app that monitors a URL and receives alerts when those resources 'go down' or 'come back up'. Built using NodeJS.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/folafunmi-db/monitoring-app-node-REST.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/folafunmi-db/monitoring-app-node-REST/issues"
+  },
+  "homepage": "https://github.com/folafunmi-db/monitoring-app-node-REST#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
